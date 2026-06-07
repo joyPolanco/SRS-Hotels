@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>SRS_Hotels.Web</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Dashboard\Controllers\" />
+    <Folder Include="Areas\Dashboard\ViewModels\" />
+    <Folder Include="Areas\Dashboard\Views\" />
+    <Folder Include="Areas\Customers\" />
+    <Folder Include="Areas\Employees\" />
+    <Folder Include="Areas\Identity\" />
+    <Folder Include="Areas\Bookings\" />
+    <Folder Include="Areas\Floors\" />
+    <Folder Include="Areas\Ammenities\" />
+    <Folder Include="Areas\Audit\" />
+    <Folder Include="Areas\Policies\" />
+    <Folder Include="Areas\RoomCategories\" />
+    <Folder Include="Areas\RoomServices\" />
+    <Folder Include="Areas\Payments\" />
+    <Folder Include="Areas\Reports\" />
+    <Folder Include="Areas\Promotions\" />
+    <Folder Include="Areas\Rooms\" />
+    <Folder Include="Helpers\" />
+    <Folder Include="ViewModels\" />
+  </ItemGroup>
+
+</Project>

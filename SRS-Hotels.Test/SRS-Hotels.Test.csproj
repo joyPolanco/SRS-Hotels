@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <RootNamespace>SRS_Hotels.Test</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="coverlet.collector" Version="6.0.2" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+    <PackageReference Include="xunit" Version="2.9.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="UnitTests\CancellationPolicies\" />
+    <Folder Include="UnitTests\Acommodation\Floor\" />
+    <Folder Include="UnitTests\Acommodation\Ammenity\" />
+    <Folder Include="UnitTests\Acommodation\RoomCategory\" />
+    <Folder Include="UnitTests\Acommodation\RoomService\" />
+    <Folder Include="UnitTests\Customers\" />
+    <Folder Include="UnitTests\Authentication\" />
+    <Folder Include="UnitTests\Bookings\" />
+    <Folder Include="UnitTests\Employees\" />
+    <Folder Include="UnitTests\Audit\" />
+    <Folder Include="UnitTests\Promotions\" />
+    <Folder Include="UnitTests\Notification\" />
+    <Folder Include="UnitTests\Payments\" />
+  </ItemGroup>
+
+</Project>
