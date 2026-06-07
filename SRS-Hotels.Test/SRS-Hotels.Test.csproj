@@ -19,20 +19,4 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="UnitTests\CancellationPolicies\" />
-    <Folder Include="UnitTests\Acommodation\Floor\" />
-    <Folder Include="UnitTests\Acommodation\Ammenity\" />
-    <Folder Include="UnitTests\Acommodation\RoomCategory\" />
-    <Folder Include="UnitTests\Acommodation\RoomService\" />
-    <Folder Include="UnitTests\Customers\" />
-    <Folder Include="UnitTests\Authentication\" />
-    <Folder Include="UnitTests\Bookings\" />
-    <Folder Include="UnitTests\Employees\" />
-    <Folder Include="UnitTests\Audit\" />
-    <Folder Include="UnitTests\Promotions\" />
-    <Folder Include="UnitTests\Notification\" />
-    <Folder Include="UnitTests\Payments\" />
-  </ItemGroup>
-
 </Project>
