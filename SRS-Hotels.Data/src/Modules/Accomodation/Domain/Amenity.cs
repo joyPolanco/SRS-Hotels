@@ -1,8 +1,9 @@
-﻿namespace SRS_Hotels.Data.src.Modules.Employees.Domain
+﻿namespace SRS_Hotels.Data.src.Modules.Accomodation.Domain
 {
-    public class Position
+    public class Amenity
     {
         public Guid Id { get; set; }
+
         public string Name { get; set; } = null!;
     }
 }
