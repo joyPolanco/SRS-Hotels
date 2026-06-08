@@ -27,6 +27,7 @@ using SRS_Hotels.Data.src.Infraestructure.Identity.Entities;
             // ROLES
             Task<IList<string>> GetUserRolesAsync(Guid userId);
             Task AddToRoleAsync(Guid userId, string role);
-        }
+        Task<UpdateUserIdentityResponse> UpdateUserAsync(Guid id, string fullName);
+    }
     }
 

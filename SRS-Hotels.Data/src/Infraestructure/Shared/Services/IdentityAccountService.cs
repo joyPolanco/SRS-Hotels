@@ -53,7 +53,6 @@ namespace SRS_Hotels.Data.src.Infraestructure.Shared.Services
             {
                 Id = Guid.NewGuid(),
                 Email = email,
-                UserName = email,
                 FullName = fullName,
                 CreatedAt = DateTime.UtcNow,
                 PhoneNumber = phoneNumber,
@@ -66,6 +65,54 @@ namespace SRS_Hotels.Data.src.Infraestructure.Shared.Services
                 throw new ValidationException(string.Join(", ", result.Errors.Select(e => e.Description)));
 
             return user.Id;
+        }
+
+
+        public async Task<UpdateUserIdentityResponse> UpdateUserAsync(Guid id, string fullName)
+        {
+            var user = await _userManager.FindByIdAsync(id.ToString());
+
+            if (user == null)
+            {
+                return new UpdateUserIdentityResponse
+                {
+                    Success = false,
+                    Message = "User not found"
+                };
+            }
+
+            // CHECK BLOQUEO
+            if (user.LockoutEnd.HasValue &&
+                user.LockoutEnd.Value > DateTimeOffset.UtcNow)
+            {
+                return new UpdateUserIdentityResponse
+                {
+                    Success = false,
+                    Message = "User is blocked",
+                    UserBlocked =true
+                };
+            }
+
+            user.FullName = fullName;
+
+            var result = await _userManager.UpdateAsync(user);
+
+            if (!result.Succeeded)
+            {
+                return new UpdateUserIdentityResponse
+                {
+                    Success = false,
+                    Message = "Update failed",
+                    UserBlocked=false
+                };
+            }
+
+            return new UpdateUserIdentityResponse
+            {
+                Success = true,
+                Message = "User updated successfully",
+                UserBlocked=false
+            };
         }
 
         public async Task<User?> CheckPasswordAsync(string email, string password)

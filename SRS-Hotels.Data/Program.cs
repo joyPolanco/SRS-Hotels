@@ -4,7 +4,9 @@ using Mapster;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using SRS_Hotels.Data.Exceptions;
+using SRS_Hotels.Data.src.BuildingBlocks.Abstractions;
 using SRS_Hotels.Data.src.BuildingBlocks.Behaviors;
+using SRS_Hotels.Data.src.BuildingBlocks.Helpers;
 using SRS_Hotels.Data.src.Infraestructure;
 using SRS_Hotels.Data.src.Infraestructure.Identity.Seeds;
 using System.Text;
@@ -17,6 +19,8 @@ builder.Services.AddMapster();
 
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
+builder.Services.AddSingleton<IRetryPolicy, RetryPolicyService>(); 
+
 builder.Services.AddAuthentication(opt =>
 {
     opt.DefaultAuthenticateScheme = "Bearer";

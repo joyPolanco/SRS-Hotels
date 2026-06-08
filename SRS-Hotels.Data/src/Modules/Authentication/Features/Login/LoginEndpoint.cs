@@ -17,7 +17,6 @@ namespace SRS_Hotels.Data.src.Modules.Authentication.Features.Login
         {
             app.MapPost("/api/auth/login", async (LoginRequest request, ISender sender, HttpContext httpContext) =>
             {
-                Console.WriteLine(httpContext.User.ToString());
 
                 // si ya está autenticado, no permitir signup
                 if (httpContext.User.Identity?.IsAuthenticated == true)
