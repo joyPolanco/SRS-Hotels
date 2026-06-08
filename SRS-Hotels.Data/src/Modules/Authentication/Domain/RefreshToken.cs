@@ -1,6 +1,4 @@
-﻿using SRS_Hotels.Data.src.Infraestructure.Identity.Entities;
-
-namespace SRS_Hotels.Data.src.Modules.Authentication.Domain
+﻿namespace SRS_Hotels.Data.src.Modules.Authentication.Domain
 {
     public class RefreshToken
     {
@@ -13,12 +11,11 @@ namespace SRS_Hotels.Data.src.Modules.Authentication.Domain
         public DateTime CreatedAt { get; set; }
 
         public DateTime ExpiresAt { get; set; }
-
+        public Guid ReplacedById { get; set; }
         public DateTime? RevokedAt { get; set; }
 
         public bool IsActive => RevokedAt == null && DateTime.UtcNow < ExpiresAt;
-        public bool IsUsed {  get; set; }
-
-
+        public bool IsUsed { get; set; }
+        public Guid ReplacedByTokenId { get; internal set; }
     }
 }

@@ -20,10 +20,10 @@ namespace SRS_Hotels.Data.src.Infraestructure.Shared.Services
         }
 
         public async Task<Guid> RegisterClientAsync(
-           string email,
-           string password,
-           string fullName,
-           string phoneNumber)
+            string email,
+            string password,
+            string fullName,
+            string phoneNumber)
         {
             var user = new ApplicationUser
             {
@@ -33,21 +33,25 @@ namespace SRS_Hotels.Data.src.Infraestructure.Shared.Services
                 FullName = fullName,
                 CreatedAt = DateTime.UtcNow,
                 PhoneNumber = phoneNumber,
-                EmailConfirmed = true//TO-DO,
+                EmailConfirmed = true
             };
 
             var result = await _userManager.CreateAsync(user, password);
 
             if (!result.Succeeded)
-                throw new ValidationException(string.Join(", ", result.Errors.Select(e => e.Description)));
+                throw new ValidationException("Error al registrar el cliente: " +
+                    string.Join(", ", result.Errors.Select(e => e.Description)));
 
-           
             await _userManager.AddToRoleAsync(user, "Client");
 
             return user.Id;
         }
 
-        public async Task<Guid> RegisterEmployeeAsync(string email, string password, string fullName, string phoneNumber)
+        public async Task<Guid> RegisterEmployeeAsync(
+            string email,
+            string password,
+            string fullName,
+            string phoneNumber)
         {
             var user = new ApplicationUser
             {
@@ -56,17 +60,17 @@ namespace SRS_Hotels.Data.src.Infraestructure.Shared.Services
                 FullName = fullName,
                 CreatedAt = DateTime.UtcNow,
                 PhoneNumber = phoneNumber,
-                EmailConfirmed = false,
+                EmailConfirmed = false
             };
 
             var result = await _userManager.CreateAsync(user, password);
 
             if (!result.Succeeded)
-                throw new ValidationException(string.Join(", ", result.Errors.Select(e => e.Description)));
+                throw new ValidationException("Error al registrar el empleado: " +
+                    string.Join(", ", result.Errors.Select(e => e.Description)));
 
             return user.Id;
         }
-
 
         public async Task<UpdateUserIdentityResponse> UpdateUserAsync(Guid id, string fullName)
         {
@@ -77,19 +81,19 @@ namespace SRS_Hotels.Data.src.Infraestructure.Shared.Services
                 return new UpdateUserIdentityResponse
                 {
                     Success = false,
-                    Message = "User not found"
+                    Message = "Usuario no encontrado",
+                    UserBlocked = false
                 };
             }
 
-            // CHECK BLOQUEO
             if (user.LockoutEnd.HasValue &&
                 user.LockoutEnd.Value > DateTimeOffset.UtcNow)
             {
                 return new UpdateUserIdentityResponse
                 {
                     Success = false,
-                    Message = "User is blocked",
-                    UserBlocked =true
+                    Message = $"El usuario está bloqueado hasta {user.LockoutEnd.Value.UtcDateTime}",
+                    UserBlocked = true
                 };
             }
 
@@ -102,16 +106,16 @@ namespace SRS_Hotels.Data.src.Infraestructure.Shared.Services
                 return new UpdateUserIdentityResponse
                 {
                     Success = false,
-                    Message = "Update failed",
-                    UserBlocked=false
+                    Message = "Error al actualizar el usuario",
+                    UserBlocked = false
                 };
             }
 
             return new UpdateUserIdentityResponse
             {
                 Success = true,
-                Message = "User updated successfully",
-                UserBlocked=false
+                Message = "Usuario actualizado correctamente",
+                UserBlocked = false
             };
         }
 
@@ -151,7 +155,7 @@ namespace SRS_Hotels.Data.src.Infraestructure.Shared.Services
                 Email = user.Email ?? "",
                 FullName = user.FullName,
                 Roles = roles.ToList(),
-                IsBlocked = false,
+                IsBlocked = false
             };
         }
 
@@ -168,7 +172,7 @@ namespace SRS_Hotels.Data.src.Infraestructure.Shared.Services
             var result = await _userManager.ConfirmEmailAsync(user!, token);
 
             if (!result.Succeeded)
-                throw new Exception("Email confirmation failed");
+                throw new Exception("Error al confirmar el correo electrónico");
         }
 
         public async Task<string> GeneratePasswordResetTokenAsync(Guid userId)
@@ -177,14 +181,54 @@ namespace SRS_Hotels.Data.src.Infraestructure.Shared.Services
             return await _userManager.GeneratePasswordResetTokenAsync(user!);
         }
 
-        public async Task ResetPasswordAsync(Guid userId, string token, string newPassword)
+        public async Task<ResetPasswordResponse> ChangePasswordAsync(
+            Guid userId,
+            string currentPassword,
+            string newPassword)
         {
             var user = await _userManager.FindByIdAsync(userId.ToString());
 
-            var result = await _userManager.ResetPasswordAsync(user!, token, newPassword);
+            if (user is null)
+            {
+                return new ResetPasswordResponse
+                {
+                    Successful = false,
+                    Message = "Usuario no encontrado"
+                };
+            }
+
+            if (user.LockoutEnd.HasValue &&
+                user.LockoutEnd.Value > DateTimeOffset.UtcNow)
+            {
+                return new ResetPasswordResponse
+                {
+                    Successful = false,
+                    UserIsBlocked = true,
+                    Message = $"El usuario está bloqueado hasta {user.LockoutEnd.Value.UtcDateTime}"
+                };
+            }
+
+            var result = await _userManager.ChangePasswordAsync(
+                user,
+                currentPassword,
+                newPassword
+            );
 
             if (!result.Succeeded)
-                throw new Exception("Password reset failed");
+            {
+                return new ResetPasswordResponse
+                {
+                    Successful = false,
+                    Message = "No se pudo cambiar la contraseña"
+                };
+            }
+
+            return new ResetPasswordResponse
+            {
+                Successful = true,
+                UserIsBlocked = false,
+                Message = "Contraseña cambiada correctamente"
+            };
         }
 
         public async Task<Guid?> GetUserIdByEmailAsync(string email)

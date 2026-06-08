@@ -18,7 +18,6 @@ using SRS_Hotels.Data.src.Infraestructure.Identity.Entities;
 
             // RESET PASSWORD
             Task<string> GeneratePasswordResetTokenAsync(Guid userId);
-            Task ResetPasswordAsync(Guid userId, string token, string newPassword);
 
             // USER INFO
             Task<Guid?> GetUserIdByEmailAsync(string email);
@@ -27,6 +26,9 @@ using SRS_Hotels.Data.src.Infraestructure.Identity.Entities;
             // ROLES
             Task<IList<string>> GetUserRolesAsync(Guid userId);
             Task AddToRoleAsync(Guid userId, string role);
+
+        Task<ResetPasswordResponse> ChangePasswordAsync(Guid userId, string currentPassword, string newPassword);
+
         Task<UpdateUserIdentityResponse> UpdateUserAsync(Guid id, string fullName);
     }
     }

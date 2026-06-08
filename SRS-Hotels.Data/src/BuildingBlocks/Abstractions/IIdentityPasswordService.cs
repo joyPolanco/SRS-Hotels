@@ -3,6 +3,8 @@
     public interface IIdentityPasswordService
     {
         Task<string> GeneratePasswordResetTokenAsync(Guid userId);
-        Task ResetPasswordAsync(Guid userId, string token, string newPassword);
+        Task ResetPasswordByTokenAsync(Guid userId, string token, string newPassword);
+        Task ResetPasswordAsync(Guid userId, string currentPassword, string newPassword);
+
     }
 }

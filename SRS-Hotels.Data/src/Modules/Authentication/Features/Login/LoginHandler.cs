@@ -29,7 +29,7 @@ namespace SRS_Hotels.Data.src.Modules.Authentication.Features.Login
     public class LoginHandler(
        IJwtTokenService jwtTokenService,
        IIdentityAccountService accountService,
-       IRepository<RefreshToken> repository)
+       IRepository<SRS_Hotels.Data.src.Modules.Authentication.Domain.RefreshToken> repository)
        : ICommandHandler<LoginCommand, LoginResult>
     {
         public async Task<LoginResult> Handle(LoginCommand request, CancellationToken cancellationToken)
@@ -58,7 +58,7 @@ namespace SRS_Hotels.Data.src.Modules.Authentication.Features.Login
             });
 
             //generar refresh token
-            var refreshToken = new RefreshToken
+            var refreshToken = new SRS_Hotels.Data.src.Modules.Authentication.Domain.RefreshToken
             {
                 Id = Guid.NewGuid(),
                 UserId = user.Id,

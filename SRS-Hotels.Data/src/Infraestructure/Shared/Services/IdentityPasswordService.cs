@@ -42,6 +42,39 @@
                     throw new Exception($"Password reset failed: {errors}");
                 }
             }
+
+            public async Task ResetPasswordByTokenAsync(
+                  Guid userId,
+                  string token,
+                  string newPassword)
+            {
+                var user = await _userManager.FindByIdAsync(userId.ToString());
+
+                if (user is null)
+                    throw new Exception("Usuario no encontrado");
+
+                //  validar si está bloqueado
+                if (user.LockoutEnd.HasValue &&
+                    user.LockoutEnd.Value > DateTimeOffset.UtcNow)
+                {
+                    throw new Exception("El usuario está bloqueado actualmente");
+                }
+
+                //  reset password con token
+                var result = await _userManager.ResetPasswordAsync(
+                    user,
+                    token,
+                    newPassword
+                );
+
+                if (!result.Succeeded)
+                {
+                    throw new Exception(
+                        "Error al restablecer la contraseña: " +
+                        string.Join(", ", result.Errors.Select(e => e.Description))
+                    );
+                }
+            }
         }
     }
 }

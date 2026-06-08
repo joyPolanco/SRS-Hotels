@@ -21,7 +21,7 @@ namespace SRS_Hotels.Data.src.Modules.Authentication.Features.Login
                 // si ya está autenticado, no permitir signup
                 if (httpContext.User.Identity?.IsAuthenticated == true)
                 {
-                    return Results.BadRequest("User already authenticated.");
+                    return Results.BadRequest("Usuario ya auteni");
 
                 }
 

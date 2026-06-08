@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <Folder Include="src\Infraestructure\Persistence\Migrations\" />
+    <Folder Include="src\Modules\Authentication\Features\ForgotPassword\" />
     <Folder Include="src\Modules\Employees\Features\AssignPosition\" />
   </ItemGroup>
 
