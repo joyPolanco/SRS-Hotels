@@ -17,6 +17,8 @@ namespace SRS_Hotels.Data.src.Modules.Authentication.Domain
         public DateTime? RevokedAt { get; set; }
 
         public bool IsActive => RevokedAt == null && DateTime.UtcNow < ExpiresAt;
+        public bool IsUsed {  get; set; }
+
 
     }
 }

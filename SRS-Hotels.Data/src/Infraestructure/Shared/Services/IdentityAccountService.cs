@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using SRS_Hotels.Data.src.BuildingBlocks.Abstractions.SRS_Hotels.Data.src.BuildingBlocks.Abstractions;
+using SRS_Hotels.Data.src.BuildingBlocks.Abstractions;
+using SRS_Hotels.Data.src.BuildingBlocks.Contracts;
 using SRS_Hotels.Data.src.Infraestructure.Identity.Entities;
 using System.ComponentModel.DataAnnotations;
 
@@ -32,7 +33,7 @@ namespace SRS_Hotels.Data.src.Infraestructure.Shared.Services
                 FullName = fullName,
                 CreatedAt = DateTime.UtcNow,
                 PhoneNumber = phoneNumber,
-                EmailConfirmed = false,
+                EmailConfirmed = true//TO-DO,
             };
 
             var result = await _userManager.CreateAsync(user, password);
@@ -67,15 +68,44 @@ namespace SRS_Hotels.Data.src.Infraestructure.Shared.Services
             return user.Id;
         }
 
-        public async Task<bool> CheckPasswordAsync(string email, string password)
+        public async Task<User?> CheckPasswordAsync(string email, string password)
         {
             var user = await _userManager.FindByEmailAsync(email);
 
             if (user == null)
-                return false;
+                return null;
 
-            return await _signInManager.CheckPasswordSignInAsync(user, password, false)
-                is SignInResult { Succeeded: true };
+            if (user.LockoutEnd.HasValue &&
+                user.LockoutEnd.Value > DateTimeOffset.UtcNow)
+            {
+                return new User
+                {
+                    Email = user.Email ?? "",
+                    FullName = user.FullName,
+                    Id = user.Id,
+                    IsBlocked = true,
+                    BlockEnd = user.LockoutEnd
+                };
+            }
+
+            var result = await _signInManager.CheckPasswordSignInAsync(
+                user,
+                password,
+                lockoutOnFailure: false);
+
+            if (!result.Succeeded)
+                return null;
+
+            var roles = await _userManager.GetRolesAsync(user);
+
+            return new User
+            {
+                Id = user.Id,
+                Email = user.Email ?? "",
+                FullName = user.FullName,
+                Roles = roles.ToList(),
+                IsBlocked = false,
+            };
         }
 
         public async Task<string> GenerateEmailConfirmationTokenAsync(Guid userId)

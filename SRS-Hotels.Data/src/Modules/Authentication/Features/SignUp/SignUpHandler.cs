@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using SRS_Hotels.Data.src.BuildingBlocks.Abstractions;
-using SRS_Hotels.Data.src.BuildingBlocks.Abstractions.SRS_Hotels.Data.src.BuildingBlocks.Abstractions;
 using SRS_Hotels.Data.src.Modules.Customers.Domain;
 
 

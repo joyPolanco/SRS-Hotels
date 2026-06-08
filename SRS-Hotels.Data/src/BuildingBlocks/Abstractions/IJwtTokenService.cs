@@ -4,7 +4,7 @@ namespace SRS_Hotels.Data.src.BuildingBlocks.Abstractions
 {
     public interface IJwtTokenService
     {
-        string GenerateToken(GenerateJwtRequest request);
+        string GenerateJwtToken(GenerateJwtRequest request);
 
     }
 }

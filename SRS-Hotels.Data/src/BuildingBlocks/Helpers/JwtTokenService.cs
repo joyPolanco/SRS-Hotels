@@ -7,7 +7,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace SRS_Hotels.Data.src.Infraestructure.Shared.Services
+namespace SRS_Hotels.Data.src.BuildingBlocks.Helpers
 {
     public class JwtTokenService : IJwtTokenService
     {
@@ -18,7 +18,9 @@ namespace SRS_Hotels.Data.src.Infraestructure.Shared.Services
             _options = options.Value;
         }
 
-        public string GenerateToken(GenerateJwtRequest request)
+
+     
+        public string GenerateJwtToken(GenerateJwtRequest request)
         {
             var claims = new List<Claim>
             {

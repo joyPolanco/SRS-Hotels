@@ -28,18 +28,18 @@ namespace SRS_Hotels.Data.src.Modules.Authentication.Features.SignUp
 
                             return Results.Ok(response);
                         })
-                .WithName("SignUp")
-                .WithTags("Authentication")
-                
-                .Produces<SignUpResponse>(StatusCodes.Status200OK)
-                .Produces(StatusCodes.Status400BadRequest)
-                .WithSummary("Registers a new user account.")
-                .WithDescription("Creates a new client account with the provided email, password, full name, and phone number. Returns a success status and message.")
+                        .WithName("SignUp")
+                        .WithTags("Authentication")
+
+                        .Produces<SignUpResponse>(StatusCodes.Status200OK)
+                        .Produces(StatusCodes.Status400BadRequest)
+                        .WithSummary("Registers a new user account.")
+                        .WithDescription("Creates a new client account with the provided email, password, full name, and phone number. Returns a success status and message.");
 
 
                 /*
                    .WithOpenApi(operation =>
-                       {
+        {
                     operation.Summary = "User registration endpoint";
                     operation.Description = "Allows anonymous users to create a new account.";
 

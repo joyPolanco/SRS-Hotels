@@ -1,8 +1,7 @@
-﻿using SRS_Hotels.Data.src.Infraestructure.Identity.Entities;
+﻿using SRS_Hotels.Data.src.BuildingBlocks.Contracts;
+using SRS_Hotels.Data.src.Infraestructure.Identity.Entities;
 
-namespace SRS_Hotels.Data.src.BuildingBlocks.Abstractions
-{
-    namespace SRS_Hotels.Data.src.BuildingBlocks.Abstractions
+ namespace SRS_Hotels.Data.src.BuildingBlocks.Abstractions
     {
         public interface IIdentityAccountService
         {
@@ -10,8 +9,8 @@ namespace SRS_Hotels.Data.src.BuildingBlocks.Abstractions
             Task<Guid> RegisterClientAsync(string email, string password, string fullName, string phoneNumber);
             Task<Guid> RegisterEmployeeAsync(string email, string password, string fullName, string phoneNumber);
 
-            // LOGIN (solo valida credenciales)
-            Task<bool> CheckPasswordAsync(string email, string password);
+            // LOGIN 
+            Task<User?> CheckPasswordAsync(string email, string password);
 
             // EMAIL CONFIRMATION
             Task<string> GenerateEmailConfirmationTokenAsync(Guid userId);
@@ -30,4 +29,4 @@ namespace SRS_Hotels.Data.src.BuildingBlocks.Abstractions
             Task AddToRoleAsync(Guid userId, string role);
         }
     }
-}
+
