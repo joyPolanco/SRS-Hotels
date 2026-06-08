@@ -6,7 +6,7 @@ using SRS_Hotels.Data.src.Modules.Authentication.Domain;
 
 namespace SRS_Hotels.Data.src.Infraestructure.Identity.Contexts
 {
-    public class IdentityContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
+    public class IdentityContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>
     {
         public IdentityContext(DbContextOptions<IdentityContext> options) : base(options)
         {

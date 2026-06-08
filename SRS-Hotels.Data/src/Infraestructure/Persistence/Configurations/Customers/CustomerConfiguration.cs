@@ -12,8 +12,7 @@ namespace SRS_Hotels.Data.src.Infraestructure.Persistence.Configurations.Custome
 
             builder.HasKey(x => x.Id);
 
-            builder.Property(x => x.FirstName).HasMaxLength(100).IsRequired();
-            builder.Property(x => x.LastName).HasMaxLength(100).IsRequired();
+            builder.Property(x => x.FullName).HasMaxLength(100).IsRequired();
             builder.Property(x => x.Email).HasMaxLength(150).IsRequired();
             builder.Property(x => x.Phone).HasMaxLength(20).IsRequired();
 

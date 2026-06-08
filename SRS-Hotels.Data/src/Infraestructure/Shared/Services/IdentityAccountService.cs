@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using SRS_Hotels.Data.src.BuildingBlocks.Abstractions.SRS_Hotels.Data.src.BuildingBlocks.Abstractions;
 using SRS_Hotels.Data.src.Infraestructure.Identity.Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace SRS_Hotels.Data.src.Infraestructure.Shared.Services
 {
@@ -17,7 +18,11 @@ namespace SRS_Hotels.Data.src.Infraestructure.Shared.Services
             _signInManager = signInManager;
         }
 
-        public async Task<Guid> RegisterUserAsync(string email, string password, string fullName)
+        public async Task<Guid> RegisterClientAsync(
+           string email,
+           string password,
+           string fullName,
+           string phoneNumber)
         {
             var user = new ApplicationUser
             {
@@ -25,13 +30,39 @@ namespace SRS_Hotels.Data.src.Infraestructure.Shared.Services
                 Email = email,
                 UserName = email,
                 FullName = fullName,
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = DateTime.UtcNow,
+                PhoneNumber = phoneNumber,
+                EmailConfirmed = false,
             };
 
             var result = await _userManager.CreateAsync(user, password);
 
             if (!result.Succeeded)
-                throw new Exception(string.Join(", ", result.Errors.Select(e => e.Description)));
+                throw new ValidationException(string.Join(", ", result.Errors.Select(e => e.Description)));
+
+           
+            await _userManager.AddToRoleAsync(user, "Client");
+
+            return user.Id;
+        }
+
+        public async Task<Guid> RegisterEmployeeAsync(string email, string password, string fullName, string phoneNumber)
+        {
+            var user = new ApplicationUser
+            {
+                Id = Guid.NewGuid(),
+                Email = email,
+                UserName = email,
+                FullName = fullName,
+                CreatedAt = DateTime.UtcNow,
+                PhoneNumber = phoneNumber,
+                EmailConfirmed = false,
+            };
+
+            var result = await _userManager.CreateAsync(user, password);
+
+            if (!result.Succeeded)
+                throw new ValidationException(string.Join(", ", result.Errors.Select(e => e.Description)));
 
             return user.Id;
         }

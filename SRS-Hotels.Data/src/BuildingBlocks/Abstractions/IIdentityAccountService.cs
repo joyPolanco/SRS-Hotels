@@ -7,7 +7,8 @@ namespace SRS_Hotels.Data.src.BuildingBlocks.Abstractions
         public interface IIdentityAccountService
         {
             // REGISTRO
-            Task<Guid> RegisterUserAsync(string email, string password, string fullName);
+            Task<Guid> RegisterClientAsync(string email, string password, string fullName, string phoneNumber);
+            Task<Guid> RegisterEmployeeAsync(string email, string password, string fullName, string phoneNumber);
 
             // LOGIN (solo valida credenciales)
             Task<bool> CheckPasswordAsync(string email, string password);
