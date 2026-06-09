@@ -23,6 +23,7 @@ namespace SRS_Hotels.Data.src.Modules.Bookings.Domain
         public DateTime CreatedAt { get; set; }
 
         public ICollection<BookingGuest> Guests { get; set; } = new List<BookingGuest>();
+
         public ICollection<BookingHistory> History { get; set; } = new List<BookingHistory>();
     }
 }

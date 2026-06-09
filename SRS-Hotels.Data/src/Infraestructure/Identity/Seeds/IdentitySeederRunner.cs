@@ -10,8 +10,10 @@ namespace SRS_Hotels.Data.src.Infraestructure.Identity.Seeds
             using var scope = app.ApplicationServices.CreateScope();
 
             var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
+            var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
             await RoleSeeder.SeedAsync(roleManager);
+            await UsersSeeder.SeedAsync(userManager, roleManager);
         }
     }
 }
