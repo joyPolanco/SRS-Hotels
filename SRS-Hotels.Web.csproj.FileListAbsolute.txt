@@ -1,0 +1,10 @@
+C:\Users\Johaly\source\repos\SRSH\SRS-Hotels.Web\obj\Debug\net9.0\SRS-Hotels.Web.csproj.AssemblyReference.cache
+C:\Users\Johaly\source\repos\SRSH\SRS-Hotels.Web\obj\Debug\net9.0\rpswa.dswa.cache.json
+C:\Users\Johaly\source\repos\SRSH\SRS-Hotels.Web\obj\Debug\net9.0\SRS-Hotels.Web.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Johaly\source\repos\SRSH\SRS-Hotels.Web\obj\Debug\net9.0\SRS-Hotels.Web.AssemblyInfoInputs.cache
+C:\Users\Johaly\source\repos\SRSH\SRS-Hotels.Web\obj\Debug\net9.0\SRS-Hotels.Web.AssemblyInfo.cs
+C:\Users\Johaly\source\repos\SRSH\SRS-Hotels.Web\obj\Debug\net9.0\SRS-Hotels.Web.csproj.CoreCompileInputs.cache
+C:\Users\Johaly\source\repos\SRSH\SRS-Hotels.Web\obj\Debug\net9.0\SRS-Hotels.Web.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Johaly\source\repos\SRSH\SRS-Hotels.Web\obj\Debug\net9.0\SRS-Hotels.Web.RazorAssemblyInfo.cache
+C:\Users\Johaly\source\repos\SRSH\SRS-Hotels.Web\obj\Debug\net9.0\SRS-Hotels.Web.RazorAssemblyInfo.cs
+C:\Users\Johaly\source\repos\SRSH\SRS-Hotels.Web\obj\Debug\net9.0\SRS-Hotels.Web.sourcelink.json

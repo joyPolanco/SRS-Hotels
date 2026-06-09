@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>SRS_Hotels.Web</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="Areas\Auth\Views\Account\Register.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Areas\Auth\Views\Account\Register.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Dashboard\Controllers\" />
+    <Folder Include="Areas\Dashboard\ViewModels\" />
+    <Folder Include="Areas\Dashboard\Views\" />
+    <Folder Include="Areas\Home\" />
+    <Folder Include="ViewModels\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SRS-Hotels.Data\SRS-Hotels.Data.csproj" />
+  </ItemGroup>
+
+</Project>
